@@ -25,8 +25,15 @@ utilizando enfoques colaborativos y de contenido.
 
 ## Dataset
 
-Utilizamos el dataset [MovieLens](https://grouplens.org/datasets/movielens/)
-(versión pequeña: `ratings_small.csv`, `links.csv`).
+Se utilizaron únicamente los archivos:
+
+- `ratings_small.csv`: Calificaciones explícitas de usuarios a películas.
+- `links_small.csv`: Relación de IDs entre MovieLens, IMDb y TMDb.
+
+Los datos fueron obtenidos desde Kaggle:
+
+[The Movies Dataset - Kaggle](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)
+
 
 ## Autores
 
