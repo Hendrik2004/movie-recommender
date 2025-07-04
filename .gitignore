@@ -1,6 +1,35 @@
+<<<<<<< HEAD
+# Python
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Mac / Windows
+.DS_Store
+Thumbs.db
+
+# Datos locales
+data/processed/
+data/interim/
+data/external/
+data/raw/credits.csv
+
+
+# Entornos virtuales
+env/
+.venv/
+*.env
+=======
 **/*__pycache__/*
 *.env
 env_vars*
 credentials*
 **/build/*
-data/raw/credits.csv 
+>>>>>>> d431fc79ee7d873f8401a83f167906456bc19cca
+"data/raw/credits.csv" 
