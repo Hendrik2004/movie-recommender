@@ -19,6 +19,8 @@ data/processed/
 data/interim/
 data/external/
 data/raw/credits.csv
+data/processed/*.csv
+
 
 
 # Entornos virtuales
