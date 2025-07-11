@@ -3,23 +3,16 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# Rutas
+# Ruta a los datos procesados
 DATA_PATH = "data/processed/"
 OUTPUT_PATH = "docs/data/"
+
+# Crear la carpeta de salida si no existe
 os.makedirs(OUTPUT_PATH, exist_ok=True)
 
-# Validar existencia de los archivos
-ratings_file = os.path.join(DATA_PATH, "ratings_processed.csv")
-links_file = os.path.join(DATA_PATH, "links_processed.csv")
-
-if not os.path.exists(ratings_file):
-    raise FileNotFoundError(f"{ratings_file} no encontrado.")
-if not os.path.exists(links_file):
-    raise FileNotFoundError(f"{links_file} no encontrado.")
-
-# Carga de datos
-ratings = pd.read_csv(ratings_file)
-links = pd.read_csv(links_file)
+# Carga de  datos
+ratings = pd.read_csv(os.path.join(DATA_PATH, "ratings_processed.csv"))
+links = pd.read_csv(os.path.join(DATA_PATH, "links_processed.csv"))
 
 # Información general
 print("=== Información de ratings ===")
@@ -67,17 +60,14 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUTPUT_PATH, "ratings_per_movie.png"))
 plt.close()
 
-# Heatmap de correlación (en este caso solo 'rating')
-plt.figure(figsize=(6, 4))
-sns.heatmap(ratings[['rating']].corr(), annot=True, cmap='coolwarm')
-plt.title("Matriz de correlación (ratings)")
+# Promedio de calificaciones por película
+avg_rating_per_movie = ratings.groupby("movieId")["rating"].mean()
+plt.figure(figsize=(8, 4))
+sns.histplot(avg_rating_per_movie, bins=20, kde=True)
+plt.title("Distribución de promedio de calificaciones por película")
+plt.xlabel("Calificación promedio")
 plt.tight_layout()
-plt.savefig(os.path.join(OUTPUT_PATH, "correlation_heatmap.png"))
+plt.savefig(os.path.join(OUTPUT_PATH, "avg_rating_per_movie.png"))
 plt.close()
 
-# Películas más calificadas (Top 5)
-top_movies = ratings['movieId'].value_counts().head(5)
-print("\nPelículas con más calificaciones:")
-print(top_movies)
-
-print("\n Análisis exploratorio completado. Gráficas guardadas en 'docs/data/'")
+print("Análisis exploratorio completado. Gráficas guardadas en docs/data/")
