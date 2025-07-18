@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 # Python
 __pycache__/
 *.py[cod]
-*.ipynb_checkpoints
 
 # Jupyter
 .ipynb_checkpoints/
@@ -21,17 +19,16 @@ data/external/
 data/raw/credits.csv
 data/processed/*.csv
 
-
-
 # Entornos virtuales
 env/
 .venv/
 *.env
-=======
-**/*__pycache__/*
-*.env
+
+# Archivos de entorno / configuración
 env_vars*
 credentials*
-**/build/*
->>>>>>> d431fc79ee7d873f8401a83f167906456bc19cca
+
+# Archivos de construcción
+**/build/
+
 "data/raw/credits.csv" 
