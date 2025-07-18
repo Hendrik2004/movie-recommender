@@ -32,13 +32,50 @@ En esta sección se presenta un resumen general de los conjuntos de datos utiliz
   - `movieId` e `imdbId`: **sin valores nulos**.
 
 ---
+
+#### movies_metadata.csv:
+- **Número total de observaciones**: 45,766  
+- **Número de variables**: 24  
+- **Variables y tipos (selección)**:
+  - `id` (`int`): Identificador único.
+  - `title` (`str`): Título de la película.
+  - `genres` (`list[dict]`): Lista de géneros asociados.
+  - `budget` (`int`): Presupuesto estimado (USD).
+  - `revenue` (`int`): Ingresos obtenidos (USD).
+  - `release_date` (`str`): Fecha de estreno.
+  - `runtime` (`float`): Duración en minutos.
+  - `popularity` (`float`): Popularidad relativa.
+  - `vote_average` (`float`): Promedio de votos.
+  - `vote_count` (`int`): Número de votos.
+- **Valores faltantes**: Varios campos contienen valores nulos, especialmente `budget`, `revenue` y `runtime`.
+
+---
+
+#### credits.csv:
+- **Número total de observaciones**: 45,000  
+- **Número de variables**: 3  
+- **Variables y tipos**:
+  - `id` (`int`): Identificador de la película.
+  - `cast` (`list[dict]`): Lista de actores.
+  - `crew` (`list[dict]`): Lista de miembros del equipo técnico (dirección, guion, etc.).
+- **Valores faltantes**: No aparentes.
+---
+#### keywords.csv:
+- **Número total de observaciones**: 46476  
+- **Número de variables**: 2  
+- **Variables y tipos**:
+  - `id` (`int`): Identificador TMDb.
+  - `keywords` (`list`): Lista de palabras clave asociadas a la película.
+- **Valores faltantes**: Ninguno.
+---
+
 ## Resumen de calidad de los datos
 
 En esta sección se presenta un resumen de la calidad de los datos. Se describe la cantidad y porcentaje de valores faltantes, valores extremos, errores y duplicados. También se muestran las acciones tomadas para abordar estos problemas.
 
 ---
 
-#### ratings_small.csv:
+#### ratings_processed.csv:
 
 - **Valores faltantes**: No se encontraron valores nulos en ninguna de las columnas.
 - **Valores extremos**:
@@ -50,7 +87,7 @@ En esta sección se presenta un resumen de la calidad de los datos. Se describe 
 
 ---
 
-#### links_small.csv:
+#### links_processed.csv:
 
 - **Valores faltantes**:
   - `tmdbId`: **13 valores nulos** (*0.14% del total*).
@@ -62,6 +99,38 @@ En esta sección se presenta un resumen de la calidad de los datos. Se describe 
 
 ---
 
+#### movies_metadata_enriched.csv:
+
+- **Valores faltantes**:
+  - `overview`, `poster_path`, `tagline`, `belongs_to_collection`, `homepage`: contienen valores nulos de forma moderada o alta.
+- **Errores o inconsistencias**:
+  - Algunos campos como `release_date` podrían tener formatos inconsistentes o vacíos.
+- **Valores extremos**:
+  - `budget` y `revenue` presentan valores extremos (incluidos ceros).
+- **Duplicados**: No se detectaron duplicados exactos por `id`.
+- **Acciones tomadas**:
+  - Transformación de `genres` a listas limpias.
+  - Conversión de `id` a entero para facilitar uniones.
+
+---
+
+#### credits.csv:
+
+- **Valores faltantes**: No se observaron valores nulos.
+- **Errores**: Las columnas `cast` y `crew` contienen listas en formato string, requerían conversión a estructuras válidas (p. ej., usando `ast.literal_eval`).
+- **Duplicados**: No se detectaron duplicados exactos.
+- **Acciones tomadas**:
+  - Normalización de listas para extraer información útil como nombres de actores o directores principales.
+
+---
+
+#### keywords.csv:
+
+- **Valores faltantes**: No se observaron valores nulos.
+- **Errores**: La columna `keywords` contenía strings representando listas de diccionarios.
+- **Acciones tomadas**:
+  - Conversión a listas reales y extracción de palabras clave para análisis posterior.
+---
 ## Variable objetivo
 
 En esta sección se describe la variable objetivo. Se muestra la distribución de la variable y se presentan gráficos que permiten entender mejor su comportamiento.
